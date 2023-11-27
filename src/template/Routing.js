@@ -1,9 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Admin from "../pages/Admin";
 import Berita from "../pages/berita";
 import Presenter from "../pages/Presenter";
 import Saran from "../pages/Saran";
-import User from "../pages/User";
 import Body from "../template/Body";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";

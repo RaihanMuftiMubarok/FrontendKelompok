@@ -2,6 +2,7 @@ import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+const token = localStorage.getItem('token');
 function Presenter() {
 
 const [presenter, setPresenter] = useState([]);
@@ -12,6 +13,7 @@ useEffect(() => {
 }, []);
 const fectData = async () => {
     try {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const response1 = await axios.get('http://localhost:3000/api/presenter');
         const data1 = await response1.data.data;
         setPresenter(data1);

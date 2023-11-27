@@ -15,9 +15,7 @@ useEffect(() => {
 
 const fetchData = async () => {
     try {
-        const headers = {
-            Authorization: `Bearer  ${token}`,
-        };
+
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const response1 = await axios.get('http://localhost:3000/api/berita');
         const data1 = await response1.data.data;
