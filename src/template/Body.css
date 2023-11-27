@@ -1,0 +1,121 @@
+.home {
+  background-image: url('../../public/img/bgoren.jpeg');
+}
+.container-1 {
+  background-color: #ddd;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.container-2 {
+  background-color: white;
+    padding-top: 10px;
+    padding: 20px;
+}
+.news-container {
+  position: relative;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+/* Gaya untuk membuat tulisan berjalan */
+.marquee {
+  position: relative;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  background-color: orangered; /* Warna latar belakang merah */
+  padding: 7px;
+  font-weight: 600;
+}
+
+.marquee p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 30s linear infinite;
+  color: white; /* Warna teks putih */
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  margin-right: 70px;
+}
+
+/* Gaya untuk elemen h1 */
+.headline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white; /* Warna latar belakang merah */
+  color: orangered; /* Warna teks putih */
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-bottom: 4px;
+  padding-left: 10px;
+  margin-top: 3px;
+  margin-right: 10px;
+  margin-bottom: 0px;
+  margin-left: 100px;
+  z-index: 2; /* Tingkatkan z-index agar headline tetap di depan */
+  border-top-left-radius: 12.5px;
+  border-top-right-radius: 12.5px;
+  border-bottom-right-radius: 12.5px;
+  border-bottom-left-radius: 12.5px;
+  box-shadow: 0px 11px 5px -5px rgba(61, 61, 61, 0.16);
+  font-weight: 600;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(100%, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+.card {
+  width: 18rem;
+  margin: 25px;
+}
+
+.cards-wrapper {
+  display: flex;
+  justify-content: space-between; /* Sesuaikan kebutuhan layout Anda */
+  align-items: center; /* Sesuaikan kebutuhan layout Anda */
+  margin: 0 auto; /* Opsional: Pusatkan cards-wrapper secara horizontal */
+}
+
+.container-yt {
+  margin-top: 20px;
+  margin-left: 50px;
+  border: #f86f03;
+  border-radius: 50%;
+}
+.card-video {
+  padding-right: 5%;
+  border: black;
+  padding-top: 15px;
+}
+
+.embed-responsive-item {
+  border-radius: 5%;
+}
+
+.btn-1{
+  background-color: #3b5998;
+}
+.btn-2{
+  background-color: #dd4b39;
+}
+.btn-3{
+  background-color: #ac2bac;
+}
+.btn-4{
+  background-color: #55acee;
+}
+.btn-5{
+  background-color: #B70404;
+}
+.footer{
+  background-color: rgba(0, 0, 0, 0.2);
+}

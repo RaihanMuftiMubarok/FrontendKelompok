@@ -2,35 +2,34 @@ import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+const token = localStorage.getItem('token');
 function Berita() {
 
 const [berita, setBerita] = useState([]);
-const [admin, setAdmin] = useState([]);
+const [presenter, setPresenter] = useState([]);
 
 const url = "http://localhost:3000/static/";
 useEffect(() => {
     fetchData();
 }, []);
+
 const fetchData = async () => {
     try {
+        const headers = {
+            Authorization: `Bearer  ${token}`,
+        };
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const response1 = await axios.get('http://localhost:3000/api/berita');
-        setBerita(response1.data.data);
-
-        const response2 = await axios.get('http://localhost:3000/api/admin');
-        setAdmin(response2.data.data);
+        const data1 = await response1.data.data;
+        setBerita(data1);
+        
+        const response2 = await axios.get('http://localhost:3000/api/presenter');
+        const data2 = await response2.data.data;
+        setPresenter(data2);
     } catch (error) {
         console.error('Kesalahan:', error);
     }
 };
-// const fetchData = async () =>{
-//     const response1 = await axios.get('http://localhost:3000/api/berita');
-//     const data1 = await response1.data.data;
-//     setBerita(data1);
-
-//     const response2 = await axios.get('http://localhost:3000/api/admin');
-//     const data2 = await response2.data.data;
-//     setAdmin(data2);
-// }
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -41,29 +40,26 @@ const fetchData = async () => {
     const [tgl_berita, setTglBerita] = useState('');
     const [file_berita, setFileBerita] = useState(null);
     const [id_presenter, setIdPresenter] = useState('');
-    const [id_admin, setIdAdmin] = useState('');
     const [validation, setValidation] = useState({});
     const navigate = useNavigate();
 
-    const handlejudul_beritaChange = (e) => {
+    const handleJudulBeritaChange = (e) => {
         setJudulBerita(e.target.value);
     };
-    const handlejenis_beritaChange = (e) => {
+    const handleJenisBeritaChange = (e) => {
         setJenisBerita(e.target.value);
     };
-    const handletgl_beritaChange = (e) => {
+    const handleTglBeritaChange = (e) => {
         setTglBerita(e.target.value);
     };
-    const handlefile_beritachange = (e) => {
+    const handleFileBeritaChange = (e) => {
         const file = e.target.files[0];
         setFileBerita(file);
     };
-    const handleid_presenter = (e) => {
+    const handleIdPresenterChange = (e) => {
         setIdPresenter(e.target.value);
     };
-    const handleid_admin = (e) => {
-        setIdAdmin(e.target.value);
-    };
+
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -74,14 +70,14 @@ const fetchData = async () => {
         formData.append('tgl_berita', tgl_berita);
         formData.append('file_berita', file_berita);
         formData.append('id_presenter', id_presenter);
-        formData.append('id_admin', id_admin);
 
         try {
             await axios.post('http://localhost:3000/api/berita/store', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+
                 },
-            });
+            }); 
             navigate('/berita');
             fetchData();
         } catch (error) {
@@ -91,12 +87,11 @@ const fetchData = async () => {
     };
 
     const [editData, setEditData] = useState({
-        id_m:null,
+        id_berita:null,
         judul_berita: '',
         jenis_berita: '',
         tgl_berita: '',
-        id_presenter:'',
-        id_admin:''
+        id_presenter:''
     });
 
     const [showEditModal, setShowEditModal] = useState(false);
@@ -123,21 +118,21 @@ const fetchData = async () => {
         e.preventDefault();
         const formData = new FormData();
 
-        formData.append('id_m', editData.id_m);
+        formData.append('id_berita', editData.id_berita);
         formData.append('judul_berita', editData.judul_berita);
         formData.append('jenis_berita', editData.jenis_berita);
         formData.append('tgl_berita', editData.tgl_berita);
         formData.append('id_presenter', editData.id_presenter);
-        formData.append('id_admin', editData.id_admin);
 
         if (editData.file_berita){
             formData.append('file_berita', editData.file_berita);
         }
 
         try {
-            await axios.patch(`http://localhost:3000/api/berita/update/${editData.id_m}`, formData,{
+            await axios.patch(`http://localhost:3000/api/berita/update/${editData.id_berita}`, formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
+
                 },
             });
             navigate('/berita');
@@ -149,12 +144,14 @@ const fetchData = async () => {
         }
     };
 
-    const handleDelete = (id_m) => {
+    const handleDelete = (id_berita) => {
         axios
-        .delete(`http://localhost:3000/api/berita/delete/${id_m}`)
+        .delete(`http://localhost:3000/api/berita/delete/${id_berita}`,{
+
+        })
         .then((response) => {
             console.log('Data berhasil dihapus');
-            const updateberita = berita.filter((item)=> item.id_m !== id_m);
+            const updateberita = berita.filter((item)=> item.id_berita !== id_berita);
             setBerita(updateberita);
         })
         .catch((error) => {
@@ -166,7 +163,7 @@ const fetchData = async () => {
     return(
         <Container>
             <Row>
-                <div className="backgroud bg-dark text-white">
+                <div className="backgroud  text-white">
                 <Col>
                 <h2>Data Berita</h2>
                 <Button  variant="primary" onClick={handleShow}>Tambah </Button>
@@ -180,7 +177,6 @@ const fetchData = async () => {
                         <th scope="col">Tanggal </th>
                         <th scope="col">File</th>
                         <th scope="col">Presenter</th>
-                        <th scope="col">Admin</th>
                         <th scope="col" colSpan={2}>Action</th>
                     </tr>
                 </thead>
@@ -192,15 +188,14 @@ const fetchData = async () => {
                             <td>{berita.jenis_berita}</td>
                             <td>{berita.tgl_berita}</td>
                             <td><img src={url + berita.file_berita} height="100"/></td>
-                            <td>{berita.presenter}</td>
-                            <td>{berita.admin}</td>
+                            <td>{berita.nama_presenter}</td>
                             <td>
                                 <button onClick={() => handleShowEditModal(berita)} className='btn btn-sm btn-info'>
                                     Edit 
                                 </button>
                             </td>
                             <td>
-                                <button onClick={() => handleDelete(berita.id_m)} className='btn btn-sm btn-danger' >
+                                <button onClick={() => handleDelete(berita.id_berita)} className='btn btn-sm btn-danger' >
                                     Hapus
                                 </button>
                             </td>
@@ -217,40 +212,31 @@ const fetchData = async () => {
                 <Modal.Body>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
-                            <label className="form-label">Judu Berita:</label>
-                            <input type="text" className="form-control" value={judul_berita} onChange={handlejudul_beritaChange} />
+                            <label className="form-label">Judul Berita:</label>
+                            <input type="text" className="form-control" value={judul_berita} onChange={handleJudulBeritaChange} />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Jenis Berita:</label>
-                            <input type="text" className="form-control" value={jenis_berita} onChange={handlejenis_beritaChange} />
+                            <input type="text" className="form-control" value={jenis_berita} onChange={handleJenisBeritaChange} />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Tanggal:</label>
-                            <input type="text" className="form-control" value={tgl_berita} onChange={handletgl_beritaChange} />
+                            <input type="date" className="form-control" value={tgl_berita} onChange={handleTglBeritaChange} />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">File:</label>
-                            <input type="file" className="form-control" accept="image/*" onChange={handlefile_beritachange} />
+                            <input type="file" className="form-control" accept="image/*" onChange={handleFileBeritaChange} />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Presenter:</label>
-                            <select type="text" className="form-control" value={id_presenter} onChange={handleid_presenter}>
-                            {admin.map(([presenter]) => (
-                                <option key={[presenter].id_presebter} value={[presenter].id_presebter}>
-                                    {[presenter].nama_presenter}
+                            <select type="text" className="form-control" value={id_presenter} onChange={handleIdPresenterChange}>
+                            {presenter.map((presenter) => (
+                                <option key={presenter.id_presenter} value={presenter.id_presenter}>
+                                    {presenter.nama_presenter}
                                 </option>
                             ))}
                             </select>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">admin:</label>
-                            <select type="text" className="form-control" value={id_presenter} onChange={handleid_admin}>
-                            {admin.map((admin) => (
-                                <option key={admin.id_admin} value={admin.id_admin}>
-                                    {admin.nama_admin}
-                                </option>
-                            ))}
-                            </select>
+                            
                         </div>
                         <button onClick={handleClose} type="submit" className="btn btn-primary">Kirim</button>
                     </form>
@@ -283,7 +269,7 @@ const fetchData = async () => {
                     <div className="mb-3">
                         <label className="form-label">tgl_berita:</label>
                         <input
-                        type="text"
+                        type="date"
                         className="form-control"
                         value={editData ? editData.tgl_berita : ''}
                         onChange={(e) => handleEditDataChange('tgl_berita', e.target.value)}
@@ -305,23 +291,9 @@ const fetchData = async () => {
                         value={editData ? editData.id_presenter : ''}
                         onChange={(e) => handleEditDataChange('id_presenter', e.target.value)}
                         >
-                        {admin.map((berita) => (
-                            <option key={berita.id_presenter} value={berita.id_presenter}>
-                            {berita.nama_presenter}
-                            </option>
-                        ))}
-                        </select>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">admin:</label>
-                        <select
-                        className="form-select"
-                        value={editData ? editData.id_admin : ''}
-                        onChange={(e) => handleEditDataChange('id_admin', e.target.value)}
-                        >
-                        {admin.map((berita) => (
-                            <option key={berita.id_admin} value={berita.id_admin}>
-                            {berita.nama_admin}
+                        {presenter.map((presenter) => (
+                            <option key={presenter.id_presenter} value={presenter.id_presenter}>
+                            {presenter.nama_presenter}
                             </option>
                         ))}
                         </select>

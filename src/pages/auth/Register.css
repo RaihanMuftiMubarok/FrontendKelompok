@@ -1,0 +1,19 @@
+.container-register{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-bottom: 30px;
+    background-color: aliceblue;
+}
+.form-group{
+    margin-left: 15%;
+    margin-right: 15%;
+}
+.card-foto{
+    border-top-left-radius: .3rem; border-top-right-radius: .3rem;
+}
+.register{
+    margin-top: 5%;
+    margin-left: 15%;
+}

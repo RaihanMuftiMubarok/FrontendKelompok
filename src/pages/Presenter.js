@@ -8,22 +8,23 @@ const [presenter, setPresenter] = useState([]);
 
 const url = "http://localhost:3000/static/";
 useEffect(() => {
-    fetchData();
+    fectData();
 }, []);
-// const fetchData = async () => {
-//     try {
-//         const response1 = await axios.get('http://localhost:3000/api/presenter');
-//         setPresenter(response1.data.data);
+const fectData = async () => {
+    try {
+        const response1 = await axios.get('http://localhost:3000/api/presenter');
+        const data1 = await response1.data.data;
+        setPresenter(data1);
 
-//     } catch (error) {
-//         console.error('Kesalahan:', error);
-//     }
-// };
-const fetchData = async () =>{
-    const response1 = await axios.get('http://localhost:3000/api/presenter');
-    const data1 = await response1.data.data;
-    setPresenter(data1);
-}
+    } catch (error) {
+        console.error('Kesalahan:', error);
+    }
+};
+// const fectData = async () =>{
+//     const response1 = await axios.get('http://localhost:3000/api/presenter');
+//     const data1 = await response1.data.data;
+//     setPresenter(data1);
+// }
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -36,13 +37,13 @@ const fetchData = async () =>{
     const [validation, setValidation] = useState({});
     const navigate = useNavigate();
 
-    const handlenama_presenterChange = (e) => {
+    const handleNamaPresenterChange = (e) => {
         setNamaPresenter(e.target.value);
     };
-    const handleno_hpChange = (e) => {
+    const handleNoHPChange = (e) => {
         setNoHp(e.target.value);
     };
-    const handlegender = (e) => {
+    const handleGenderChange = (e) => {
         setgender(e.target.value);
     };
     const handlefile_presenterChange = (e) => {
@@ -67,7 +68,7 @@ const fetchData = async () =>{
                 },
             });
             navigate('/presenter');
-            fetchData();
+            fectData();
         } catch (error) {
             console.error('Kesalahan:', error);
             setValidation(error.response.data);
@@ -121,7 +122,7 @@ const fetchData = async () =>{
                 },
             });
             navigate('/presenter');
-            fetchData();
+            fectData();
             setShowEditModal(false);
         } catch (error) {
             console.error('Kesalahan:', error);
@@ -146,6 +147,8 @@ const fetchData = async () =>{
     return(
         <Container>
             <Row>
+                
+            <div className="backgroud ">
                 <Col>
                 <h2>Data presenter</h2>
                 <Button  variant="primary" onClick={handleShow}>Tambah </Button>
@@ -162,20 +165,20 @@ const fetchData = async () =>{
                     </tr>
                 </thead>
                 <tbody>
-                    { presenter.map((mh, index) => (
+                    { presenter.map((presenter, index) => (
                         <tr>
                             <td>{index + 1}</td>
-                            <td>{mh.nama_presenter}</td>
-                            <td>{mh.no_hp}</td>
-                            <td>{mh.gender}</td>
-                            <td><img src={url + mh.file_presenter} height="100"/></td>
+                            <td>{presenter.nama_presenter}</td>
+                            <td>{presenter.no_hp}</td>
+                            <td>{presenter.gender}</td>
+                            <td><img src={url + presenter.file_presenter} height="100"/></td>
                             <td>
-                                <button onClick={() => handleShowEditModal(mh)} className='btn btn-sm btn-info'>
+                                <button onClick={() => handleShowEditModal(presenter)} className='btn btn-sm btn-info'>
                                     Edit 
                                 </button>
                             </td>
                             <td>
-                                <button onClick={() => handleDelete(mh.id_presenter)} className='btn btn-sm btn-danger' >
+                                <button onClick={() => handleDelete(presenter.id_presenter)} className='btn btn-sm btn-danger' >
                                     Hapus
                                 </button>
                             </td>
@@ -183,6 +186,7 @@ const fetchData = async () =>{
                     ))}
                 </tbody>
                 </table>
+                </div>
             </Row>
             <Modal show={show} onHide={handleClose} >
                 <Modal.Header closeButton>
@@ -192,15 +196,19 @@ const fetchData = async () =>{
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label">Nama Presenter:</label>
-                            <input type="text" className="form-control" value={nama_presenter} onChange={handlenama_presenterChange} />
+                            <input type="text" className="form-control" value={nama_presenter} onChange={handleNamaPresenterChange} />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">No HP:</label>
-                            <input type="text" className="form-control" value={no_hp} onChange={handleno_hpChange} />
+                            <input type="text" className="form-control" value={no_hp} onChange={handleNoHPChange} />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">gender:</label>
-                            <input type="text" className="form-control" value={gender} onChange={handlegender} />
+                            <label className="form-select">Gender:</label>
+                            <select type="text" className="form-control" value={gender} onChange={handleGenderChange}>
+                                <option selected>Select Gender</option>
+                                <option value="1">Pria</option>
+                                <option value="2">Wanita</option>
+                            </select>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">file_presenter:</label>

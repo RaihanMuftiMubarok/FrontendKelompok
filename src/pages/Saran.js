@@ -41,10 +41,10 @@ const fetchData = async () => {
     const [validation, setValidation] = useState({});
     const navigate = useNavigate();
 
-    const handleisi_saranChange = (e) => {
+    const handleIsiSaranChange = (e) => {
         setIsiSaran(e.target.value);
     };
-    const handleid_user = (e) => {
+    const handleIdUserChange = (e) => {
         setIdUser(e.target.value);
     };
 
@@ -135,31 +135,31 @@ const fetchData = async () => {
         <Container>
             <Row>
                 <Col>
-                <h2>Data saran</h2>
+                <h2>Data Komentar</h2>
                 <Button  variant="primary" onClick={handleShow}>Tambah </Button>
                 </Col>
                 <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">isi_saran</th>
+                        <th scope="col">Isi Komentar</th>
                         <th scope="col">user</th>
                         <th scope="col" colSpan={2}>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    { saran.map((mh, index) => (
+                    { saran.map((saran, index) => (
                         <tr>
                             <td>{index + 1}</td>
-                            <td>{mh.isi_saran}</td>
-                            <td>{mh.user}</td>
+                            <td>{saran.isi_saran}</td>
+                            <td>{saran.nama_user}</td>
                             <td>
-                                <button onClick={() => handleShowEditModal(mh)} className='btn btn-sm btn-info'>
+                                <button onClick={() => handleShowEditModal(saran)} className='btn btn-sm btn-info'>
                                     Edit 
                                 </button>
                             </td>
                             <td>
-                                <button onClick={() => handleDelete(mh.id_saran)} className='btn btn-sm btn-danger' >
+                                <button onClick={() => handleDelete(saran.id_saran)} className='btn btn-sm btn-danger' >
                                     Hapus
                                 </button>
                             </td>
@@ -176,14 +176,14 @@ const fetchData = async () => {
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label">isi_saran:</label>
-                            <input type="text" className="form-control" value={isi_saran} onChange={handleisi_saranChange} />
+                            <input type="text" className="form-control" value={isi_saran} onChange={handleIsiSaranChange} />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">user:</label>
-                            <select type="text" className="form-control" value={id_user} onChange={handleid_user}>
-                            {user.map((jr) => (
-                                <option key={jr.id_user} value={jr.id_user}>
-                                    {jr.isi_saran_user}
+                            <select type="text" className="form-control" value={id_user} onChange={handleIdUserChange}>
+                            {user.map((user) => (
+                                <option key={user.id_user} value={user.id_user}>
+                                    {user.nama_user}
                                 </option>
                             ))}
                             </select>
@@ -214,9 +214,9 @@ const fetchData = async () => {
                         value={editData ? editData.id_user : ''}
                         onChange={(e) => handleEditDataChange('id_user', e.target.value)}
                         >
-                        {user.map((jr) => (
-                            <option key={jr.id_user} value={jr.id_user}>
-                            {jr.isi_saran_user}
+                        {user.map((user) => (
+                            <option key={user.id_user} value={user.id_user}>
+                            {user.id_user}
                             </option>
                         ))}
                         </select>
