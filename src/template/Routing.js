@@ -177,11 +177,9 @@ function Routing() {
             <Route path="/" element={<Body />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Register" element={<Register />} />
-            <Route path="/admin" element={<Admin />} />
             <Route path="/berita" element={<Berita />} />
             <Route path="/presenter" element={<Presenter />} />
             <Route path="/saran" element={<Saran />} />
-            <Route path="/user" element={<User />} />
           </Routes>
         </div>
         <footer class="footer text-center text-secondary">

@@ -205,8 +205,8 @@ const fectData = async () => {
                             <input type="text" className="form-control" value={no_hp} onChange={handleNoHPChange} />
                         </div>
                         <div className="mb-3">
-                            <label className="form-select">Gender:</label>
-                            <select type="text" className="form-control" value={gender} onChange={handleGenderChange}>
+                            <label className="form-label">Gender:</label>
+                            <select type="text" className="form-select" value={gender} onChange={handleGenderChange}>
                                 <option selected>Select Gender</option>
                                 <option value="1">Pria</option>
                                 <option value="2">Wanita</option>
@@ -236,7 +236,7 @@ const fectData = async () => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">no_hp:</label>
+                        <label className="form-label">No HP:</label>
                         <input
                         type="text"
                         className="form-control"
@@ -245,16 +245,17 @@ const fectData = async () => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">gender:</label>
-                        <input
-                        type="text"
-                        className="form-control"
-                        value={editData ? editData.gender : ''}
-                        onChange={(e) => handleEditDataChange('gender', e.target.value)}
-                        />
+                        <label className="form-label">Gender:</label>
+                        <select type="text" className="form-select" value={editData ? editData.gender : ''}
+                        onChange={(e) => handleEditDataChange('gender', e.target.value)}>
+                                <option selected>Select Gender</option>
+                                <option value="1">Pria</option>
+                                <option value="2">Wanita</option>
+                            </select>
+                        
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">file_presenter:</label>
+                        <label className="form-label">File:</label>
                         <input
                         type="file"
                         className="form-control"
