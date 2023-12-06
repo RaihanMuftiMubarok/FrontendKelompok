@@ -1,6 +1,6 @@
 import "./Body.css";
 
-function Body() {
+function BodyA() {
   return (
     <div className="home ">
       <div className="news-container">
@@ -213,7 +213,7 @@ function Body() {
                   <div class="embed-responsive embed-responsive-16by9">
                     <iframe
                       class="embed-responsive-item"
-                      src="https://www.youtube.com/embed/aeb_cS8jyXg"
+                      src="https://www.youtube.com/embed/07hTE8I6x_A"
                       width="100%"
                     ></iframe>
                   </div>
@@ -221,10 +221,11 @@ function Body() {
                 <div class="col-md-5">
                   <div class="card-body">
                     <h5 class="card-title">
-                      Korupsi BTS Kominfo
+                      Update terkini konflik Palestina vs Israel
                     </h5>
                     <p class="card-text">
-                    Terungkap! Saksi Blak blakan Ada Makelar Tawarkan Setop Perkara Korupsi BTS Johnny Plate
+                      UPDATE TERKINI Konflik Palestina-Israel, Israel Tembakkan
+                      Peluru dan Gas Air Mata ke Rumah Sakit
                     </p>
                   </div>
                 </div>
@@ -236,7 +237,7 @@ function Body() {
                   <div class="embed-responsive embed-responsive-16by9">
                     <iframe
                       class="embed-responsive-item"
-                      src="https://www.youtube.com/embed/tLC-A_CVzUA"
+                      src="https://youtu.be/Z64UPZZaiqE"
                       width="100%"
                     ></iframe>
                   </div>
@@ -262,4 +263,4 @@ function Body() {
     </div>
   );
 }
-export default Body;
+export default BodyA;

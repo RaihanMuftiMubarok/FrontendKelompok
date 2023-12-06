@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 const token = localStorage.getItem('token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-function Saran() {
+function SaranA() {
 
 const [saran, setSaran] = useState([]);
 const [user, setUser] = useState([]);
@@ -16,7 +16,7 @@ useEffect(() => {
 const fetchData = async () => {
     try {
 
-        const response1 = await axios.get('http://localhost:3000/api/saran');
+        const response1 = await axios.get('http://localhost:3000/api/saran/admin');
         setSaran(response1.data.data);
 
         const response2 = await axios.get('http://localhost:3000/api/auth');
@@ -111,7 +111,7 @@ const fetchData = async () => {
                     'Content-Type': 'application/json',
                 },
             });
-            navigate('/saran');
+            navigate('/saranA');
             fetchData();
             setShowEditModal(false);
         } catch (error) {
@@ -140,7 +140,7 @@ const fetchData = async () => {
             <div className="backgroud text-center text-white mt-2">
                 <Col>
                 <h2>Data Komentar</h2>
-                <Button  variant="primary" onClick={handleShow}>Tambah </Button>
+                {/* <Button  variant="primary" onClick={handleShow}>Tambah </Button> */}
                 </Col>
                 <table className="table">
                 <thead>
@@ -148,7 +148,7 @@ const fetchData = async () => {
                         <th scope="col">No</th>
                         <th scope="col">Isi Komentar</th>
                         <th scope="col">user</th>
-                        {/* <th scope="col" colSpan={2}>Action</th> */}
+                        <th scope="col" colSpan={2}>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -157,7 +157,7 @@ const fetchData = async () => {
                             <td>{index + 1}</td>
                             <td>{saran.isi_saran}</td>
                             <td>{saran.nama_user}</td>
-                            {/* <td>
+                            <td>
                                 <button onClick={() => handleShowEditModal(saran)} className='btn btn-sm btn-info'>
                                     Edit 
                                 </button>
@@ -166,7 +166,7 @@ const fetchData = async () => {
                                 <button onClick={() => handleDelete(saran.id_saran)} className='btn btn-sm btn-danger' >
                                     Hapus
                                 </button>
-                            </td> */}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -236,4 +236,4 @@ const fetchData = async () => {
     )
 }
 
-export default Saran;
+export default SaranA;

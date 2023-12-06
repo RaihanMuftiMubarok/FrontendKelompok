@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const token = localStorage.getItem("token");
-function Presenter() {
+function PresenterA() {
   const [presenter, setPresenter] = useState([]);
 
   const url = "http://localhost:3000/static/";
@@ -13,7 +13,7 @@ function Presenter() {
   const fectData = async () => {
     try {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      const response1 = await axios.get("http://localhost:3000/api/presenter");
+      const response1 = await axios.get("http://localhost:3000/api/presenter/admin");
       const data1 = await response1.data.data;
       setPresenter(data1);
     } catch (error) {
@@ -66,7 +66,7 @@ function Presenter() {
           "Content-Type": "multipart/form-data",
         },
       });
-      navigate("/presenter");
+      navigate("/presenterA");
       fectData();
     } catch (error) {
       console.error("Kesalahan:", error);
@@ -124,7 +124,7 @@ function Presenter() {
           },
         }
       );
-      navigate("/presenter");
+      navigate("/presenterA");
       fectData();
       setShowEditModal(false);
     } catch (error) {
@@ -157,9 +157,9 @@ function Presenter() {
         <div className="backgroud text-center text-white mt-2">
           <Col>
             <h2>Data presenter</h2>
-            {/* <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" onClick={handleShow}>
               Tambah{" "}
-            </Button> */}
+            </Button>
           </Col>
           <table className="table">
             <thead>
@@ -169,9 +169,9 @@ function Presenter() {
                 <th scope="col">No HP</th>
                 <th scope="col">Gender</th>
                 <th scope="col">File</th>
-                {/* <th scope="col" colSpan={2}>
+                <th scope="col" colSpan={2}>
                   Action
-                </th> */}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -188,7 +188,7 @@ function Presenter() {
                       height="100"
                     />
                   </td>
-                  {/* <td>
+                  <td>
                     <button
                       onClick={() => handleShowEditModal(presenter)}
                       className="btn btn-sm btn-info"
@@ -226,7 +226,7 @@ function Presenter() {
                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                       </svg>
                     </button>
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -349,4 +349,4 @@ function Presenter() {
   );
 }
 
-export default Presenter;
+export default PresenterA;

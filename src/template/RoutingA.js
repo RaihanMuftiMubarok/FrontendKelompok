@@ -1,26 +1,21 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Berita from "../pages/berita";
 import BeritaA from "../pages/beritaA";
-import PresenterA from "../pages/PresenterA";
 import Presenter from "../pages/Presenter";
 import Saran from "../pages/Saran";
-import SaranA from "../pages/SaranA";
-import Body from "../template/Body";
-import Register from "../pages/auth/Register";
-import RegisterA from "../pages/auth/RegisterA";
-import Login from "../pages/auth/Login";
-import LoginA from "../pages/auth/LoginA";
+import BodyA from "../template/BodyA";
+import Register from "../pages/authadmin/Register";
+import Login from "../pages/authadmin/Login";
 import "./Routing.css";
 
-function Routing() {
-  const token = localStorage.getItem("token");
-  const isLoggedIn = !!token;
-  // const navigate useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    console.log("Berhasil Logout");
-    window.location.reload();
-  };
+function RoutingA() {
+  const token = localStorage.getItem('token');
+    const isLoggedIn = !!token;
+    // const navigate useNavigate();
+    const handleLogout = () => {
+            localStorage.removeItem('token');
+            console.log("Berhasil Logout");
+            window.location.reload();
+        };
   return (
     <Router>
       <div class="Routing">
@@ -28,8 +23,12 @@ function Routing() {
           <nav class="navbar  ">
             <div class="container-fluid">
               <b class="navbar-brand">
-                <Link class="nav-link active" to="/berita">
-                  <img src="img/logo.png" class="card-img-top" alt="..." />
+                <Link class="nav-link active" to="/beritaA">
+                <img
+                      src="img/logo.png"
+                      class="card-img-top"
+                      alt="..."
+                    />
                 </Link>
               </b>
               <button
@@ -66,22 +65,8 @@ function Routing() {
                         Admin
                       </Link>
                     </li> */}
-                    {isLoggedIn ? (
-                      <li class="nav-item">
-                        <Link class="nav-link " onClick={handleLogout}>
-                          Logout
-                        </Link>
-                      </li>
-                    ) : (
-                      <li class="nav-item">
-                        <Link class="nav-link " to="/login">
-                          Login
-                        </Link>
-                      </li> 
-                    )}
-
                     <li class="nav-item">
-                      <Link class="nav-link" to="/beritaA">
+                      <Link class="nav-link" to="/berita">
                         Berita
                       </Link>
                     </li>
@@ -95,6 +80,8 @@ function Routing() {
                         Komentar
                       </Link>
                     </li>
+                    
+                    
                   </ul>
                 </div>
               </div>
@@ -104,35 +91,95 @@ function Routing() {
             <div class="container-fluid">
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                <li class="nav-item">
-                      <Link class="nav-link" to="/presenterA">
-                        Presenter
-                      </Link>
-                    </li>
-                    <li class="nav-item">
-                      <Link class="nav-link" to="/saranA">
-                        Komentar
-                      </Link>
-                    </li>
-                  
-                  
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">
+                      News
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      Entertaiment
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      Bisnis
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      Pemilu
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      Food & Travel
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      Bola & Sport
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      Otomotif
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      TV
+                    </a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Lainnya
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Action
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Another action
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Something else here
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  {isLoggedIn ? (
+            <li class="nav-item">
+                <Link class="nav-link " onClick={handleLogout} >Logout</Link>
+            </li>
+        ) : (
+            <li class="nav-item">
+                <Link class="nav-link " to="/login" >Login</Link>
+            </li>
+        )}
                 </ul>
               </div>
             </div>
           </nav>
-
+            
           <Routes>
-            <Route path="/berita" element={<Berita />} />
+
             <Route path="/beritaA" element={<BeritaA />} />
-            {/* <Route path="/" element={<Body />} /> */}
             <Route path="/Login" element={<Login />} />
-            <Route path="/LoginA" element={<LoginA />} />
             <Route path="/Register" element={<Register />} />
-            <Route path="/RegisterA" element={<RegisterA />} />
             <Route path="/presenter" element={<Presenter />} />
-            <Route path="/presenterA" element={<PresenterA />} />
             <Route path="/saran" element={<Saran />} />
-            <Route path="/saranA" element={<SaranA />} />
           </Routes>
         </div>
         <footer class="footer text-center text-secondary">
@@ -238,4 +285,4 @@ function Routing() {
   );
 }
 
-export default Routing;
+export default RoutingA;

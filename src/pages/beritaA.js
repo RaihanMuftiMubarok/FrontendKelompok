@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const token = localStorage.getItem("token");
-function Berita() {
+function BeritaA() {
   const [berita, setBerita] = useState([]);
   const [presenter, setPresenter] = useState([]);
   const [admin, setAdmin] = useState([]);
@@ -19,11 +19,11 @@ function Berita() {
   const fetchData = async () => {
     try {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      const response1 = await axios.get("http://localhost:3000/api/berita");
+      const response1 = await axios.get("http://localhost:3000/api/berita/beritaA");
       const data1 = await response1.data.data;
       setBerita(data1);
 
-      const response2 = await axios.get("http://localhost:3000/api/presenter");
+      const response2 = await axios.get("http://localhost:3000/api/presenter/admin");
       const data2 = await response2.data.data;
       setPresenter(data2);
 
@@ -105,7 +105,7 @@ function Berita() {
           "Content-Type": "multipart/form-data",
         },
       });
-      navigate("/berita");
+      navigate("/beritaA");
       fetchData();
     } catch (error) {
       console.error("Kesalahan:", error);
@@ -169,7 +169,7 @@ function Berita() {
           },
         }
       );
-      navigate("/berita");
+      navigate("/beritaA");
       fetchData();
       setShowEditModal(false);
     } catch (error) {
@@ -247,7 +247,7 @@ function Berita() {
                           </a>
                         </Card.Text>
                         {/* Tambahkan tombol edit dan hapus di sini jika diperlukan */}
-                        {/* <td>
+                        <td>
                           <button
                             onClick={() => handleShowEditModal(berita)}
                             className="btn btn-sm btn-warning"
@@ -285,7 +285,7 @@ function Berita() {
                               <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                             </svg>
                           </button>
-                        </td> */}
+                        </td>
                       </Card.Body>
                     </Card>
                   </Col>
@@ -315,9 +315,9 @@ function Berita() {
                   )}
                 </Modal.Body>
               </Modal>
-              {/* <Button variant="primary" onClick={handleShow}>
+              <Button variant="primary" onClick={handleShow}>
                 Tambah{" "}
-              </Button> */}
+              </Button>
               <div className="container-yt border-5">
                 <b>Jelang Akhir Tahun</b>
                 <div class="card-video mb-3">
@@ -599,4 +599,4 @@ function Berita() {
   );
 }
 
-export default Berita;
+export default BeritaA;

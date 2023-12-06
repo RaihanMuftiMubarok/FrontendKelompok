@@ -1,8 +1,9 @@
 
 .navbar{
     background-color: #F6F1E9;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: 75px;
+    margin-right: 75px;
+    
 }
 .navbar-brand{
     color:orangered;
@@ -12,6 +13,7 @@
     color: orange;
     
 }
+
 .offcanvas-body{
     background-color: #F6F1E9;
 }
